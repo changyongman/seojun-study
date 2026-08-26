@@ -2,500 +2,124 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f5f7ff">
   <title>서준이 영어 공부방</title>
-
   <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: #25324a;
-      background: linear-gradient(160deg, #f7f9ff, #fff9ee);
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Apple SD Gothic Neo",
-        "Noto Sans KR",
-        sans-serif;
-    }
-
-    button {
-      font: inherit;
-      touch-action: manipulation;
-    }
-
-    .app {
-      width: min(100%, 620px);
-      min-height: 100vh;
-      margin: 0 auto;
-      padding:
-        calc(24px + env(safe-area-inset-top))
-        16px
-        calc(25px + env(safe-area-inset-bottom));
-    }
-
-    header {
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    h1 {
-      margin: 0;
-      color: #263b69;
-      font-size: clamp(28px, 8vw, 38px);
-      letter-spacing: -1px;
-    }
-
-    .description {
-      margin: 8px 0 17px;
-      color: #728099;
-      font-size: 15px;
-    }
-
-    .progress-track {
-      height: 10px;
-      overflow: hidden;
-      background: #e7eaf2;
-      border-radius: 999px;
-    }
-
-    .progress-bar {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #667eea, #ff8c70);
-      transition: width 0.25s ease;
-    }
-
-    .progress-text {
-      margin-top: 8px;
-      color: #728099;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    .cards {
-      display: grid;
-      gap: 11px;
-    }
-
-    .card {
-      padding: 15px 16px;
-      background: #fff;
-      border: 1px solid #e8ebf3;
-      border-radius: 19px;
-      box-shadow: 0 7px 20px rgba(56, 70, 105, 0.08);
-    }
-
-    .word-row {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .number {
-      width: 30px;
-      height: 30px;
-      flex: 0 0 auto;
-      display: grid;
-      place-items: center;
-      color: #6675a5;
-      background: #eef1ff;
-      border-radius: 50%;
-      font-size: 13px;
-      font-weight: 900;
-    }
-
-    .word-button {
-      min-width: 0;
-      flex: 1;
-      padding: 5px 0;
-      overflow-wrap: anywhere;
-      text-align: left;
-      color: #253967;
-      background: transparent;
-      border: 0;
-      font-size: clamp(25px, 7vw, 34px);
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .speak-button {
-      width: 46px;
-      height: 46px;
-      flex: 0 0 auto;
-      padding: 0;
-      color: #167568;
-      background: #e1f7f1;
-      border: 0;
-      border-radius: 14px;
-      font-size: 21px;
-      cursor: pointer;
-    }
-
-    .meaning-area {
-      margin: 9px 0 0 42px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .meaning-button {
-      min-height: 36px;
-      padding: 7px 13px;
-      color: #a45b16;
-      background: #fff1d5;
-      border: 0;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-    }
-
-    .meaning {
-      color: #ed7057;
-      font-size: 18px;
-      font-weight: 900;
-      opacity: 0;
-      transform: translateX(-5px);
-      transition: 0.2s ease;
-    }
-
-    .meaning.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    button:active {
-      transform: scale(0.96);
-    }
-
-    nav {
-      position: sticky;
-      bottom: 10px;
-      margin-top: 18px;
-      padding: 9px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 9px;
-      background: rgba(255, 255, 255, 0.9);
-      border: 1px solid #e8ebf3;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(49, 61, 91, 0.16);
-      backdrop-filter: blur(12px);
-    }
-
-    .nav-button {
-      min-height: 52px;
-      color: #fff;
-      background: #6373b8;
-      border: 0;
-      border-radius: 15px;
-      font-size: 17px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .nav-button.next {
-      background: linear-gradient(135deg, #ff9d4d, #ff746a);
-    }
-
-    .nav-button:disabled {
-      opacity: 0.32;
-    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{margin:0;min-height:100vh;color:#25324a;background:linear-gradient(160deg,#f7f9ff,#fff9ee);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+    button{font:inherit;touch-action:manipulation}
+    .app{width:min(100%,620px);min-height:100vh;margin:auto;padding:calc(20px + env(safe-area-inset-top)) 16px calc(25px + env(safe-area-inset-bottom))}
+    header{text-align:center}.title{margin:0;color:#263b69;font-size:clamp(27px,8vw,38px);letter-spacing:-1px}.subtitle{margin:7px 0 15px;color:#728099;font-size:14px}
+    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;padding:6px;background:#e9edf8;border-radius:18px}
+    .tab{min-height:48px;border:0;border-radius:13px;color:#6a7590;background:transparent;font-weight:900;cursor:pointer}.tab.active{color:#fff;background:#6072c2;box-shadow:0 5px 14px #5263a743}
+    .page{display:none}.page.active{display:block}
+    .progress-track{height:10px;overflow:hidden;background:#e5e9f2;border-radius:999px}.progress-bar{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#667eea,#ff8c70);transition:width .25s}.progress-text{margin:8px 0 15px;text-align:center;color:#728099;font-size:14px;font-weight:800}
+    .cards{display:grid;gap:10px}.card{padding:14px 15px;background:#fff;border:1px solid #e8ebf3;border-radius:18px;box-shadow:0 7px 20px #38466914}.word-row{display:flex;align-items:center;gap:11px}.number{width:30px;height:30px;flex:0 0 auto;display:grid;place-items:center;color:#6675a5;background:#eef1ff;border-radius:50%;font-size:12px;font-weight:900}.word-button{min-width:0;flex:1;padding:4px 0;overflow-wrap:anywhere;text-align:left;color:#253967;background:transparent;border:0;font-size:clamp(24px,7vw,32px);font-weight:900;cursor:pointer}.speak-button{width:45px;height:45px;flex:0 0 auto;padding:0;color:#167568;background:#e1f7f1;border:0;border-radius:14px;font-size:20px;cursor:pointer}.meaning-area{margin:8px 0 0 41px;display:flex;align-items:center;gap:9px}.meaning-button{min-height:35px;padding:7px 12px;color:#a45b16;background:#fff1d5;border:0;border-radius:11px;font-size:14px;font-weight:800;cursor:pointer}.meaning{color:#ed7057;font-size:17px;font-weight:900;opacity:0;transition:.2s}.meaning.visible{opacity:1}
+    .study-nav{position:sticky;bottom:10px;margin-top:16px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#ffffffea;border:1px solid #e8ebf3;border-radius:19px;box-shadow:0 10px 30px #313d5b29;backdrop-filter:blur(12px)}.nav-button{min-height:50px;color:#fff;background:#6373b8;border:0;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer}.nav-button.next{background:linear-gradient(135deg,#ff9d4d,#ff746a)}.nav-button:disabled{opacity:.32}
+    .quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:13px 16px;background:#fff;border:1px solid #e8ebf3;border-radius:17px;box-shadow:0 6px 18px #38466912}.quiz-count{color:#758099;font-weight:800}.star-box{color:#915f00;font-size:18px;font-weight:900}.quiz-card{padding:25px 18px 20px;text-align:center;background:#fff;border:1px solid #e8ebf3;border-radius:24px;box-shadow:0 10px 28px #38466918}.quiz-label{color:#8a94aa;font-size:14px;font-weight:800}.quiz-word{margin:9px 0 14px;color:#253967;font-size:clamp(38px,12vw,58px);font-weight:950;overflow-wrap:anywhere}.quiz-speak{min-height:47px;padding:10px 18px;color:#147264;background:#dff8ef;border:0;border-radius:14px;font-weight:900;cursor:pointer}.question{margin:21px 0 12px;font-size:18px;font-weight:900}.choices{display:grid;gap:10px}.choice{min-height:55px;padding:10px 14px;text-align:left;color:#34415c;background:#fff;border:2px solid #e5e9f3;border-radius:16px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{color:#08795e;background:#dcf8ed;border-color:#42bf98}.choice.wrong{color:#a92c2c;background:#ffe5e5;border-color:#f27676}.choice:disabled{opacity:1}.choice-number{display:inline-grid;width:28px;height:28px;margin-right:8px;place-items:center;background:#eef1f8;border-radius:9px}.result{min-height:45px;margin:14px 0 0;display:grid;place-items:center;font-size:24px;font-weight:950}.result.correct{color:#e39b00}.result.wrong{color:#e04b4b}.next-question{width:100%;min-height:53px;margin-top:10px;color:#fff;background:linear-gradient(135deg,#ff9d4d,#ff746a);border:0;border-radius:16px;font-size:17px;font-weight:900;cursor:pointer;display:none}.next-question.visible{display:block}.quiz-note{margin:14px 5px 0;text-align:center;color:#8a94aa;font-size:13px}
+    .reset-stars{display:block;margin:12px auto 0;padding:8px 14px;color:#8992a5;background:transparent;border:1px solid #d8dce6;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer}
+    button:active{transform:scale(.97)}
   </style>
 </head>
-
 <body>
   <main class="app">
-    <header>
-      <h1>서준이 영어 공부방</h1>
-      <p class="description">
-        영어 단어를 누르면 발음을 들을 수 있어요
-      </p>
+    <header><h1 class="title">서준이 영어 공부방</h1><p class="subtitle">매일 조금씩, 즐겁게 공부해요!</p></header>
+    <div class="tabs">
+      <button id="studyTab" class="tab active" onclick="showPage('study')">📖 단어 공부</button>
+      <button id="quizTab" class="tab" onclick="showPage('quiz')">⭐ 별 퀴즈</button>
+    </div>
 
-      <div class="progress-track">
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
-
+    <section id="studyPage" class="page active">
+      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
       <div id="progressText" class="progress-text"></div>
-    </header>
+      <div id="cards" class="cards"></div>
+      <nav class="study-nav">
+        <button id="previousButton" class="nav-button" onclick="previousPage()">← 이전</button>
+        <button id="nextButton" class="nav-button next" onclick="nextPage()">다음 →</button>
+      </nav>
+    </section>
 
-    <section id="cards" class="cards"></section>
-
-    <nav>
-      <button
-        id="previousButton"
-        class="nav-button"
-        onclick="previousPage()"
-      >
-        ← 이전
-      </button>
-
-      <button
-        id="nextButton"
-        class="nav-button next"
-        onclick="nextPage()"
-      >
-        다음 →
-      </button>
-    </nav>
+    <section id="quizPage" class="page">
+      <div class="quiz-top"><span id="quizCount" class="quiz-count"></span><span class="star-box">⭐ <span id="starCount">0</span>개</span></div>
+      <div class="quiz-card">
+        <div class="quiz-label">이 단어의 뜻은 무엇일까요?</div>
+        <div id="quizWord" class="quiz-word"></div>
+        <button id="quizSpeak" class="quiz-speak">🔊 발음 확인</button>
+        <div class="question">정답을 골라보세요</div>
+        <div id="choices" class="choices"></div>
+        <div id="result" class="result"></div>
+        <button id="nextQuestion" class="next-question" onclick="nextQuiz()">다음 문제 →</button>
+      </div>
+      <p class="quiz-note">정답을 맞힐 때마다 별이 한 개씩 쌓여요.</p>
+      <button class="reset-stars" onclick="resetStars()">별 초기화</button>
+    </section>
   </main>
 
   <script>
-    /*
-      보내주신 표를 세로 방향으로 정렬했습니다.
-
-      첫 번째 세로줄
-      → 두 번째 세로줄
-      → 세 번째 세로줄
-    */
-
     const words = [
-  // 첫 번째 세로줄
-  ["hasty", "서두르는"],
-  ["gym", "체육관"],
-  ["pillow", "베개"],
-  ["village", "마을"],
-  ["trip", "여행"],
-  ["fireman", "소방관"],
+      ["hasty","서두르는"],["gym","체육관"],["pillow","베개"],["village","마을"],["trip","여행"],["fireman","소방관"],
+      ["culture","문화"],["trousers","바지"],["pair","한 쌍"],["pumpkin","호박"],["prize","상, 상품"],["enemy","적, 원수"],
+      ["museum","박물관"],["elbow","팔꿈치"],["honor","영광"],["amazing","놀랄 만한, 굉장한"],["giant","거인, 거대한"],["vegetable","야채, 채소"],
+      ["board","판자"],["blackboard","칠판"],["own","자기 자신의, 소유하다"],["loser","패자, 패배자"],["discuss","토론하다"],["finish","마치다, 끝내다"],
+      ["muscle","근육"],["moment","순간"],["honesty","정직"],["South","남쪽"],["Southern","남쪽의"],["North","북쪽"],
+      ["northern","북쪽의"],["borrow","빌리다"],["departure","출발"],["history","역사"],["mill","방앗간"],["windmill","풍차"],
+      ["both","양쪽의, 둘 다의"],["senior","손위의, 연장자"],["donkey","당나귀"],["laundry","세탁, 세탁물"],["woodpecker","딱따구리"],["throat","목구멍"],
+      ["cancel","취소하다"],["underground","지하의, 지하"],["than","~에 비하여, ~와 비교하여"],["mate","친구, 동료"],["classmate","학급 친구"],["roommate","한방 사람, 같이 방을 쓰는 친구"],
+      ["twinkle","반짝반짝 빛나다"],["draw","끌어당기다"],["teen","십 대, 십 대의"],["iron","철"],["behind","뒤에"],["until","~까지, ~할 때까지"],
+      ["care","관심, 돌보아 줌, 걱정"],["each","각각의, 각자의, 각각"],["dawn","새벽녘"],["climb","오르다, 기어오르다"],["sad","슬픈"],["catch","잡다"],
+      ["merry","즐거운"],["sand","모래"],["crab","게"],["filter","여과기, 거르다"],["heat","열, 가열하다"],["shut","닫다"],
+      ["castle","성"],["knock","치다, 두드리다, 노크"],["self","자기, 자신"],["flash","번쩍이다, 빛나다"],["weight","무게, 중량"],["enter","들어가다"]
+    ];
 
-  ["culture", "문화"],
-  ["trousers", "바지"],
-  ["pair", "한 쌍"],
-  ["pumpkin", "호박"],
-  ["prize", "상, 상품"],
-  ["enemy", "적, 원수"],
+    const wordsPerPage=6, pageCount=Math.ceil(words.length/wordsPerPage);
+    let currentPage=0, quizOrder=[], quizPosition=0, currentQuiz=null, answered=false;
+    let stars=Number(localStorage.getItem("seojunStars")||0);
 
-  ["museum", "박물관"],
-  ["elbow", "팔꿈치"],
-  ["honor", "영광"],
-  ["amazing", "놀랄 만한, 굉장한"],
-  ["giant", "거인, 거대한"],
-  ["vegetable", "야채, 채소"],
-
-  ["board", "판자"],
-  ["blackboard", "칠판"],
-  ["own", "자기 자신의, 소유하다"],
-  ["loser", "패자, 패배자"],
-  ["discuss", "토론하다"],
-  ["finish", "마치다, 끝내다"],
-
-  // 두 번째 세로줄
-  ["muscle", "근육"],
-  ["moment", "순간"],
-  ["honesty", "정직"],
-  ["South", "남쪽"],
-  ["Southern", "남쪽의"],
-  ["North", "북쪽"],
-
-  ["northern", "북쪽의"],
-  ["borrow", "빌리다"],
-  ["departure", "출발"],
-  ["history", "역사"],
-  ["mill", "방앗간"],
-  ["windmill", "풍차"],
-
-  ["both", "양쪽의, 둘 다의"],
-  ["senior", "손위의, 연장자"],
-  ["donkey", "당나귀"],
-  ["laundry", "세탁, 세탁물"],
-  ["woodpecker", "딱따구리"],
-  ["throat", "목구멍"],
-
-  ["cancel", "취소하다"],
-  ["underground", "지하의, 지하"],
-  ["than", "~에 비하여, ~와 비교하여"],
-  ["mate", "친구, 동료"],
-  ["classmate", "학급 친구"],
-  ["roommate", "한방 사람, 같이 방을 쓰는 친구"],
-
-  // 세 번째 세로줄
-  ["twinkle", "반짝반짝 빛나다"],
-  ["draw", "끌어당기다"],
-  ["teen", "십 대, 십 대의"],
-  ["iron", "철"],
-  ["behind", "뒤에"],
-  ["until", "~까지, ~할 때까지"],
-
-  ["care", "관심, 돌보아 줌, 걱정"],
-  ["each", "각각의, 각자의, 각각"],
-  ["dawn", "새벽녘"],
-  ["climb", "오르다, 기어오르다"],
-  ["sad", "슬픈"],
-  ["catch", "잡다"],
-
-  ["merry", "즐거운"],
-  ["sand", "모래"],
-  ["crab", "게"],
-  ["filter", "여과기, 거르다"],
-  ["heat", "열, 가열하다"],
-  ["shut", "닫다"],
-
-  ["castle", "성"],
-  ["knock", "치다, 두드리다, 노크"],
-  ["self", "자기, 자신"],
-  ["flash", "번쩍이다, 빛나다"],
-  ["weight", "무게, 중량"],
-  ["enter", "들어가다"]
-];
-
-    const wordsPerPage = 6;
-    const pageCount = Math.ceil(words.length / wordsPerPage);
-
-    let currentPage = 0;
-
-    function speak(word) {
-      if (!("speechSynthesis" in window)) {
-        alert("이 기기에서는 음성 기능을 사용할 수 없어요.");
-        return;
-      }
-
+    function speak(word){
+      if(!("speechSynthesis" in window)){alert("이 기기에서는 음성 기능을 사용할 수 없어요.");return}
       speechSynthesis.cancel();
-
-      const speech = new SpeechSynthesisUtterance(word);
-
-      speech.lang = "en-US";
-      speech.rate = 0.78;
-      speech.pitch = 1.02;
-
-      const voices = speechSynthesis.getVoices();
-
-      const englishVoice = voices.find((voice) =>
-        voice.lang.toLowerCase().startsWith("en-us")
-      );
-
-      if (englishVoice) {
-        speech.voice = englishVoice;
-      }
-
+      const speech=new SpeechSynthesisUtterance(word);speech.lang="en-US";speech.rate=.78;speech.pitch=1.02;
+      const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("en-us"));if(voice)speech.voice=voice;
       speechSynthesis.speak(speech);
     }
-
-    function showMeaning(index) {
-      const meaning = document.getElementById(
-        `meaning-${index}`
-      );
-
-      const button = document.getElementById(
-        `meaningButton-${index}`
-      );
-
-      const isVisible = meaning.classList.toggle("visible");
-
-      button.textContent = isVisible
-        ? "숨기기"
-        : "뜻 보기";
+    function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+    function showPage(page){
+      document.getElementById("studyPage").classList.toggle("active",page==="study");document.getElementById("quizPage").classList.toggle("active",page==="quiz");
+      document.getElementById("studyTab").classList.toggle("active",page==="study");document.getElementById("quizTab").classList.toggle("active",page==="quiz");
+      if(page==="quiz"&&!currentQuiz)startQuiz();window.scrollTo({top:0,behavior:"smooth"});
     }
-
-    function renderWords() {
-      const start = currentPage * wordsPerPage;
-
-      const pageWords = words.slice(
-        start,
-        start + wordsPerPage
-      );
-
-      const cards = document.getElementById("cards");
-
-      cards.innerHTML = pageWords
-        .map(([word, meaning], pageIndex) => {
-          const index = start + pageIndex;
-
-          return `
-            <article class="card">
-              <div class="word-row">
-                <div class="number">
-                  ${index + 1}
-                </div>
-
-                <button
-                  class="word-button"
-                  onclick='speak(${JSON.stringify(word)})'
-                >
-                  ${word}
-                </button>
-
-                <button
-                  class="speak-button"
-                  onclick='speak(${JSON.stringify(word)})'
-                  aria-label="${word} 발음 듣기"
-                >
-                  🔊
-                </button>
-              </div>
-
-              <div class="meaning-area">
-                <button
-                  id="meaningButton-${index}"
-                  class="meaning-button"
-                  onclick="showMeaning(${index})"
-                >
-                  뜻 보기
-                </button>
-
-                <span
-                  id="meaning-${index}"
-                  class="meaning"
-                >
-                  ${meaning}
-                </span>
-              </div>
-            </article>
-          `;
-        })
-        .join("");
-
-      document.getElementById("progressText").textContent =
-        `${currentPage + 1} / ${pageCount} 페이지 · 총 ${words.length}단어`;
-
-      document.getElementById("progressBar").style.width =
-        `${((currentPage + 1) / pageCount) * 100}%`;
-
-      document.getElementById("previousButton").disabled =
-        currentPage === 0;
-
-      document.getElementById("nextButton").textContent =
-        currentPage === pageCount - 1
-          ? "처음으로 ↻"
-          : "다음 →";
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
+    function showMeaning(index){const m=document.getElementById(`meaning-${index}`),b=document.getElementById(`meaningButton-${index}`);const visible=m.classList.toggle("visible");b.textContent=visible?"숨기기":"뜻 보기"}
+    function renderWords(){
+      const start=currentPage*wordsPerPage,pageWords=words.slice(start,start+wordsPerPage);
+      document.getElementById("cards").innerHTML=pageWords.map(([word,meaning],i)=>{const index=start+i;return `<article class="card"><div class="word-row"><div class="number">${index+1}</div><button class="word-button" onclick='speak(${JSON.stringify(word)})'>${word}</button><button class="speak-button" onclick='speak(${JSON.stringify(word)})' aria-label="${word} 발음 듣기">🔊</button></div><div class="meaning-area"><button id="meaningButton-${index}" class="meaning-button" onclick="showMeaning(${index})">뜻 보기</button><span id="meaning-${index}" class="meaning">${meaning}</span></div></article>`}).join("");
+      document.getElementById("progressText").textContent=`${currentPage+1} / ${pageCount} 페이지 · 총 ${words.length}단어`;
+      document.getElementById("progressBar").style.width=`${((currentPage+1)/pageCount)*100}%`;
+      document.getElementById("previousButton").disabled=currentPage===0;document.getElementById("nextButton").textContent=currentPage===pageCount-1?"처음으로 ↻":"다음 →";
     }
-
-    function previousPage() {
-      if (currentPage > 0) {
-        currentPage--;
-        renderWords();
-      }
+    function previousPage(){if(currentPage>0){currentPage--;renderWords();window.scrollTo({top:0,behavior:"smooth"})}}
+    function nextPage(){currentPage=currentPage<pageCount-1?currentPage+1:0;renderWords();window.scrollTo({top:0,behavior:"smooth"})}
+    function startQuiz(){quizOrder=shuffle(words.map((_,i)=>i));quizPosition=0;makeQuestion()}
+    function makeQuestion(){
+      answered=false;if(quizPosition>=quizOrder.length){quizOrder=shuffle(words.map((_,i)=>i));quizPosition=0}
+      const correctIndex=quizOrder[quizPosition],correct=words[correctIndex];
+      const wrongIndexes=shuffle(words.map((_,i)=>i).filter(i=>i!==correctIndex)).slice(0,3);
+      const options=shuffle([{text:correct[1],correct:true},...wrongIndexes.map(i=>({text:words[i][1],correct:false}))]);
+      currentQuiz={word:correct[0],meaning:correct[1]};document.getElementById("quizWord").textContent=correct[0];document.getElementById("quizCount").textContent=`${quizPosition+1} / ${words.length} 문제`;document.getElementById("starCount").textContent=stars;
+      document.getElementById("quizSpeak").onclick=()=>speak(correct[0]);document.getElementById("result").textContent="";document.getElementById("result").className="result";document.getElementById("nextQuestion").classList.remove("visible");
+      document.getElementById("choices").innerHTML=options.map((o,i)=>`<button class="choice" data-correct="${o.correct}" onclick="checkAnswer(this)"><span class="choice-number">${i+1}</span>${o.text}</button>`).join("");
     }
-
-    function nextPage() {
-      if (currentPage < pageCount - 1) {
-        currentPage++;
-      } else {
-        currentPage = 0;
-      }
-
-      renderWords();
+    function checkAnswer(button){
+      if(answered)return;answered=true;const correct=button.dataset.correct==="true",buttons=[...document.querySelectorAll(".choice")];buttons.forEach(b=>{b.disabled=true;if(b.dataset.correct==="true")b.classList.add("correct")});
+      const result=document.getElementById("result");if(correct){stars++;localStorage.setItem("seojunStars",stars);document.getElementById("starCount").textContent=stars;result.textContent="⭐ 정답! 별을 얻었어요";result.classList.add("correct")}else{button.classList.add("wrong");result.textContent="❌ 아쉬워요! 정답을 확인해 보세요";result.classList.add("wrong")}
+      document.getElementById("nextQuestion").classList.add("visible");
     }
-
-    speechSynthesis.getVoices();
-    renderWords();
+    function nextQuiz(){quizPosition++;makeQuestion();window.scrollTo({top:0,behavior:"smooth"})}
+    function resetStars(){
+      if(!confirm("모은 별을 모두 초기화할까요?"))return;
+      stars=0;localStorage.removeItem("seojunStars");document.getElementById("starCount").textContent=0;alert("별이 초기화되었어요.");
+    }
+    speechSynthesis.getVoices();renderWords();document.getElementById("starCount").textContent=stars;
   </script>
 </body>
 </html>
