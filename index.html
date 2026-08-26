@@ -2,8 +2,11 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
 
   <meta name="theme-color" content="#fff8e8">
   <title>서준이 영어 공부방</title>
@@ -17,8 +20,12 @@
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-                   "Noto Sans KR", sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Apple SD Gothic Neo",
+        "Noto Sans KR",
+        sans-serif;
       color: #25324a;
       background:
         radial-gradient(circle at top left, #fff3b8 0, transparent 35%),
@@ -34,17 +41,20 @@
       width: min(100%, 640px);
       min-height: 100vh;
       margin: 0 auto;
-      padding: 28px 18px calc(28px + env(safe-area-inset-bottom));
+      padding:
+        calc(25px + env(safe-area-inset-top))
+        18px
+        calc(28px + env(safe-area-inset-bottom));
     }
 
     header {
-      text-align: center;
       margin-bottom: 22px;
+      text-align: center;
     }
 
     .mascot {
-      font-size: 48px;
       margin-bottom: 4px;
+      font-size: 48px;
     }
 
     h1 {
@@ -79,8 +89,8 @@
     .progress-text {
       margin-top: 8px;
       color: #647087;
-      font-weight: 700;
       font-size: 14px;
+      font-weight: 700;
     }
 
     .cards {
@@ -89,7 +99,7 @@
     }
 
     .card {
-      min-height: 188px;
+      min-height: 245px;
       padding: 20px;
       display: flex;
       flex-direction: column;
@@ -107,8 +117,15 @@
       font-weight: 800;
     }
 
+    .word-image {
+      margin: 6px 0 0;
+      font-size: 64px;
+      line-height: 1.25;
+      filter: drop-shadow(0 6px 8px #53698825);
+    }
+
     .word-button {
-      margin: 5px 0 12px;
+      margin: 2px 0 12px;
       padding: 5px;
       border: 0;
       color: #263b69;
@@ -146,6 +163,12 @@
     .meaning-button {
       color: #9a5412;
       background: #fff0cf;
+    }
+
+    .speak-button:active,
+    .meaning-button:active,
+    .nav-button:active {
+      transform: scale(0.96);
     }
 
     .meaning {
@@ -204,12 +227,16 @@
       }
 
       .card {
-        min-height: 260px;
+        min-height: 295px;
         padding: 16px 10px;
       }
 
+      .word-image {
+        font-size: 55px;
+      }
+
       .word-button {
-        font-size: 28px;
+        font-size: 27px;
       }
 
       .card-actions {
@@ -225,22 +252,33 @@
     <header>
       <div class="mascot">📚✨</div>
       <h1>서준이 영어 공부방</h1>
-      <p class="description">단어를 누르면 영어 발음을 들을 수 있어요!</p>
+      <p class="description">
+        그림이나 영어 단어를 누르면 발음을 들을 수 있어요!
+      </p>
 
       <div class="progress-track">
         <div id="progressBar" class="progress-bar"></div>
       </div>
+
       <div id="progressText" class="progress-text"></div>
     </header>
 
     <section id="cards" class="cards"></section>
 
     <nav>
-      <button id="previousButton" class="nav-button" onclick="previousPage()">
+      <button
+        id="previousButton"
+        class="nav-button"
+        onclick="previousPage()"
+      >
         ← 이전
       </button>
 
-      <button id="nextButton" class="nav-button next" onclick="nextPage()">
+      <button
+        id="nextButton"
+        class="nav-button next"
+        onclick="nextPage()"
+      >
         다음 →
       </button>
     </nav>
@@ -345,8 +383,107 @@
       ["enter", "들어가다"]
     ];
 
+    const wordImages = {
+      hasty: "🏃💨",
+      muscle: "💪",
+      twinkle: "✨",
+
+      gym: "🏋️",
+      moment: "⏱️",
+      draw: "🎨",
+
+      pillow: "🛏️",
+      honesty: "🤝",
+      teen: "🧑",
+
+      village: "🏘️",
+      South: "⬇️",
+      iron: "🔩",
+
+      trip: "🧳",
+      Southern: "🌏",
+      behind: "🙈",
+
+      fireman: "🧑‍🚒",
+      North: "⬆️",
+      until: "⏳",
+
+      culture: "🎭",
+      northern: "❄️",
+      care: "🤲",
+
+      trousers: "👖",
+      borrow: "🤝",
+      each: "👤👤",
+
+      pair: "👟",
+      departure: "🛫",
+      dawn: "🌅",
+
+      pumpkin: "🎃",
+      history: "📜",
+      climb: "🧗",
+
+      prize: "🏆",
+      mill: "🏭",
+      sad: "😢",
+
+      enemy: "⚔️",
+      windmill: "🌬️",
+      catch: "🥎",
+
+      museum: "🏛️",
+      both: "✌️",
+      merry: "🥳",
+
+      elbow: "💪",
+      senior: "👴",
+      sand: "🏖️",
+
+      honor: "🎖️",
+      donkey: "🫏",
+      crab: "🦀",
+
+      amazing: "🤩",
+      laundry: "🧺",
+      filter: "🔽",
+
+      giant: "🦶",
+      woodpecker: "🐦",
+      heat: "🔥",
+
+      vegetable: "🥦",
+      throat: "🗣️",
+      shut: "🚪",
+
+      board: "🪧",
+      cancel: "❌",
+      castle: "🏰",
+
+      blackboard: "🧑‍🏫",
+      underground: "🚇",
+      knock: "✊🚪",
+
+      own: "🔑",
+      than: "⚖️",
+      self: "🪞",
+
+      loser: "😞",
+      mate: "👫",
+      flash: "⚡",
+
+      discuss: "💬",
+      classmate: "🎒👫",
+      weight: "⚖️",
+
+      finish: "🏁",
+      roommate: "🏠👫",
+      enter: "🚪➡️"
+    };
+
     const wordsPerPage = 3;
     const pageCount = Math.ceil(words.length / wordsPerPage);
+
     let currentPage = 0;
 
     function speak(word) {
@@ -358,12 +495,14 @@
       speechSynthesis.cancel();
 
       const speech = new SpeechSynthesisUtterance(word);
+
       speech.lang = "en-US";
       speech.rate = 0.78;
       speech.pitch = 1.05;
 
       const voices = speechSynthesis.getVoices();
-      const englishVoice = voices.find(voice =>
+
+      const englishVoice = voices.find((voice) =>
         voice.lang.toLowerCase().startsWith("en-us")
       );
 
@@ -376,52 +515,81 @@
 
     function showMeaning(index) {
       const meaning = document.getElementById(`meaning-${index}`);
-      const button = document.getElementById(`meaningButton-${index}`);
+      const button = document.getElementById(
+        `meaningButton-${index}`
+      );
+
       const isVisible = meaning.classList.toggle("visible");
 
-      button.textContent = isVisible ? "뜻 숨기기" : "뜻 보기";
+      button.textContent = isVisible
+        ? "뜻 숨기기"
+        : "뜻 보기";
     }
 
     function renderWords() {
       const start = currentPage * wordsPerPage;
-      const pageWords = words.slice(start, start + wordsPerPage);
+      const pageWords = words.slice(
+        start,
+        start + wordsPerPage
+      );
+
       const cards = document.getElementById("cards");
 
-      cards.innerHTML = pageWords.map(([word, meaning], pageIndex) => {
-        const index = start + pageIndex;
+      cards.innerHTML = pageWords
+        .map(([word, meaning], pageIndex) => {
+          const index = start + pageIndex;
+          const image = wordImages[word] || "📖";
 
-        return `
-          <article class="card">
-            <div class="number">WORD ${index + 1}</div>
+          return `
+            <article class="card">
+              <div class="number">
+                WORD ${index + 1}
+              </div>
 
-            <button
-              class="word-button"
-              onclick='speak(${JSON.stringify(word)})'
-              aria-label="${word} 발음 듣기">
-              ${word}
-            </button>
+              <div
+                class="word-image"
+                role="button"
+                aria-label="${word} 발음 듣기"
+                onclick='speak(${JSON.stringify(word)})'
+              >
+                ${image}
+              </div>
 
-            <div class="card-actions">
               <button
-                class="speak-button"
-                onclick='speak(${JSON.stringify(word)})'>
-                🔊 발음 듣기
+                class="word-button"
+                onclick='speak(${JSON.stringify(word)})'
+                aria-label="${word} 발음 듣기"
+              >
+                ${word}
               </button>
 
-              <button
-                id="meaningButton-${index}"
-                class="meaning-button"
-                onclick="showMeaning(${index})">
-                뜻 보기
-              </button>
-            </div>
+              <div class="card-actions">
+                <button
+                  class="speak-button"
+                  onclick='speak(${JSON.stringify(word)})'
+                >
+                  🔊 발음 듣기
+                </button>
 
-            <div id="meaning-${index}" class="meaning">
-              ${meaning}
-            </div>
-          </article>
-        `;
-      }).join("");
+                <button
+                  id="meaningButton-${index}"
+                  class="meaning-button"
+                  onclick="showMeaning(${index})"
+                >
+                  뜻 보기
+                </button>
+              </div>
+
+              <div
+                id="meaning-${index}"
+                class="meaning"
+              >
+                ${meaning}
+              </div>
+            </article>
+          `;
+        })
+        .join("");
 
       document.getElementById("progressText").textContent =
         `${currentPage + 1} / ${pageCount} · 총 ${words.length}단어`;
@@ -433,9 +601,14 @@
         currentPage === 0;
 
       document.getElementById("nextButton").textContent =
-        currentPage === pageCount - 1 ? "처음으로 ↻" : "다음 →";
+        currentPage === pageCount - 1
+          ? "처음으로 ↻"
+          : "다음 →";
 
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
 
     function previousPage() {
