@@ -8,7 +8,7 @@
     content="width=device-width, initial-scale=1, viewport-fit=cover"
   >
 
-  <meta name="theme-color" content="#fff8e8">
+  <meta name="theme-color" content="#f5f7ff">
   <title>서준이 영어 공부방</title>
 
   <style>
@@ -20,16 +20,14 @@
     body {
       margin: 0;
       min-height: 100vh;
+      color: #25324a;
+      background: linear-gradient(160deg, #f7f9ff, #fff9ee);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
         "Apple SD Gothic Neo",
         "Noto Sans KR",
         sans-serif;
-      color: #25324a;
-      background:
-        radial-gradient(circle at top left, #fff3b8 0, transparent 35%),
-        linear-gradient(145deg, #fffaf0, #eaf7ff);
     }
 
     button {
@@ -38,211 +36,183 @@
     }
 
     .app {
-      width: min(100%, 640px);
+      width: min(100%, 620px);
       min-height: 100vh;
       margin: 0 auto;
       padding:
-        calc(25px + env(safe-area-inset-top))
-        18px
-        calc(28px + env(safe-area-inset-bottom));
+        calc(24px + env(safe-area-inset-top))
+        16px
+        calc(25px + env(safe-area-inset-bottom));
     }
 
     header {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       text-align: center;
-    }
-
-    .mascot {
-      margin-bottom: 4px;
-      font-size: 48px;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(27px, 8vw, 40px);
+      color: #263b69;
+      font-size: clamp(28px, 8vw, 38px);
       letter-spacing: -1px;
     }
 
     .description {
-      margin: 8px 0 18px;
-      color: #647087;
+      margin: 8px 0 17px;
+      color: #728099;
       font-size: 15px;
     }
 
     .progress-track {
-      height: 12px;
+      height: 10px;
       overflow: hidden;
-      background: #ffffffaa;
-      border: 2px solid #fff;
+      background: #e7eaf2;
       border-radius: 999px;
-      box-shadow: 0 4px 15px #61728e20;
     }
 
     .progress-bar {
       width: 0;
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, #ffbd3e, #ff7d66);
-      transition: width 0.3s ease;
+      background: linear-gradient(90deg, #667eea, #ff8c70);
+      transition: width 0.25s ease;
     }
 
     .progress-text {
       margin-top: 8px;
-      color: #647087;
+      color: #728099;
       font-size: 14px;
       font-weight: 700;
     }
 
     .cards {
       display: grid;
-      gap: 16px;
+      gap: 11px;
     }
 
     .card {
-      min-height: 245px;
-      padding: 20px;
+      padding: 15px 16px;
+      background: #fff;
+      border: 1px solid #e8ebf3;
+      border-radius: 19px;
+      box-shadow: 0 7px 20px rgba(56, 70, 105, 0.08);
+    }
+
+    .word-row {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      text-align: center;
-      background: #fffffff2;
-      border: 2px solid #fff;
-      border-radius: 25px;
-      box-shadow: 0 12px 30px #5369881c;
+      align-items: center;
+      gap: 12px;
     }
 
     .number {
-      color: #98a2b5;
+      width: 30px;
+      height: 30px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      color: #6675a5;
+      background: #eef1ff;
+      border-radius: 50%;
       font-size: 13px;
-      font-weight: 800;
-    }
-
-    .word-image {
-      margin: 6px 0 0;
-      font-size: 64px;
-      line-height: 1.25;
-      filter: drop-shadow(0 6px 8px #53698825);
+      font-weight: 900;
     }
 
     .word-button {
-      margin: 2px 0 12px;
-      padding: 5px;
-      border: 0;
-      color: #263b69;
+      min-width: 0;
+      flex: 1;
+      padding: 5px 0;
+      overflow-wrap: anywhere;
+      text-align: left;
+      color: #253967;
       background: transparent;
-      font-size: clamp(32px, 10vw, 46px);
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .word-button:active {
-      transform: scale(0.96);
-    }
-
-    .card-actions {
-      display: flex;
-      justify-content: center;
-      gap: 9px;
-    }
-
-    .speak-button,
-    .meaning-button {
-      min-height: 46px;
-      padding: 10px 16px;
       border: 0;
-      border-radius: 15px;
-      font-weight: 800;
+      font-size: clamp(25px, 7vw, 34px);
+      font-weight: 900;
       cursor: pointer;
     }
 
     .speak-button {
-      color: #147264;
-      background: #dff8ef;
+      width: 46px;
+      height: 46px;
+      flex: 0 0 auto;
+      padding: 0;
+      color: #167568;
+      background: #e1f7f1;
+      border: 0;
+      border-radius: 14px;
+      font-size: 21px;
+      cursor: pointer;
+    }
+
+    .meaning-area {
+      margin: 9px 0 0 42px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
     .meaning-button {
-      color: #9a5412;
-      background: #fff0cf;
-    }
-
-    .speak-button:active,
-    .meaning-button:active,
-    .nav-button:active {
-      transform: scale(0.96);
+      min-height: 36px;
+      padding: 7px 13px;
+      color: #a45b16;
+      background: #fff1d5;
+      border: 0;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
     }
 
     .meaning {
-      min-height: 31px;
-      margin-top: 12px;
-      color: #ef6f51;
-      font-size: 22px;
+      color: #ed7057;
+      font-size: 18px;
       font-weight: 900;
       opacity: 0;
-      transform: translateY(-4px);
+      transform: translateX(-5px);
       transition: 0.2s ease;
     }
 
     .meaning.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateX(0);
+    }
+
+    button:active {
+      transform: scale(0.96);
     }
 
     nav {
       position: sticky;
-      bottom: 12px;
-      margin-top: 20px;
-      padding: 10px;
+      bottom: 10px;
+      margin-top: 18px;
+      padding: 9px;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      background: #ffffffd9;
-      border: 2px solid #fff;
-      border-radius: 22px;
-      box-shadow: 0 10px 35px #42536c2b;
+      gap: 9px;
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid #e8ebf3;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(49, 61, 91, 0.16);
       backdrop-filter: blur(12px);
     }
 
     .nav-button {
-      min-height: 55px;
+      min-height: 52px;
+      color: #fff;
+      background: #6373b8;
       border: 0;
-      border-radius: 16px;
-      color: white;
-      background: #506fbd;
+      border-radius: 15px;
       font-size: 17px;
       font-weight: 900;
       cursor: pointer;
     }
 
     .nav-button.next {
-      background: linear-gradient(135deg, #ff9e45, #ff7167);
+      background: linear-gradient(135deg, #ff9d4d, #ff746a);
     }
 
     .nav-button:disabled {
-      opacity: 0.35;
-    }
-
-    @media (min-width: 600px) {
-      .cards {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .card {
-        min-height: 295px;
-        padding: 16px 10px;
-      }
-
-      .word-image {
-        font-size: 55px;
-      }
-
-      .word-button {
-        font-size: 27px;
-      }
-
-      .card-actions {
-        flex-direction: column;
-        align-items: center;
-      }
+      opacity: 0.32;
     }
   </style>
 </head>
@@ -250,10 +220,9 @@
 <body>
   <main class="app">
     <header>
-      <div class="mascot">📚✨</div>
       <h1>서준이 영어 공부방</h1>
       <p class="description">
-        그림이나 영어 단어를 누르면 발음을 들을 수 있어요!
+        영어 단어를 누르면 발음을 들을 수 있어요
       </p>
 
       <div class="progress-track">
@@ -285,203 +254,95 @@
   </main>
 
   <script>
+    /*
+      보내주신 표를 세로 방향으로 정렬했습니다.
+
+      첫 번째 세로줄
+      → 두 번째 세로줄
+      → 세 번째 세로줄
+    */
+
     const words = [
+      // 첫 번째 세로줄
       ["hasty", "성급한"],
-      ["muscle", "근육"],
-      ["twinkle", "반짝이다"],
-
       ["gym", "체육관"],
-      ["moment", "순간"],
-      ["draw", "그리다"],
-
       ["pillow", "베개"],
-      ["honesty", "정직"],
-      ["teen", "십 대"],
-
       ["village", "마을"],
-      ["South", "남쪽"],
-      ["iron", "철, 다리미"],
-
       ["trip", "여행"],
-      ["Southern", "남쪽의"],
-      ["behind", "뒤에"],
-
       ["fireman", "소방관"],
-      ["North", "북쪽"],
-      ["until", "~까지"],
-
       ["culture", "문화"],
-      ["northern", "북쪽의"],
-      ["care", "돌보다, 관심"],
-
       ["trousers", "바지"],
-      ["borrow", "빌리다"],
-      ["each", "각각의"],
-
       ["pair", "한 쌍"],
-      ["departure", "출발"],
-      ["dawn", "새벽"],
-
       ["pumpkin", "호박"],
-      ["history", "역사"],
-      ["climb", "오르다"],
-
       ["prize", "상"],
-      ["mill", "방앗간"],
-      ["sad", "슬픈"],
-
       ["enemy", "적"],
-      ["windmill", "풍차"],
-      ["catch", "잡다"],
-
       ["museum", "박물관"],
-      ["both", "둘 다"],
-      ["merry", "즐거운"],
-
       ["elbow", "팔꿈치"],
-      ["senior", "선배, 연장자"],
-      ["sand", "모래"],
-
       ["honor", "명예"],
-      ["donkey", "당나귀"],
-      ["crab", "게"],
-
       ["amazing", "놀라운"],
-      ["laundry", "세탁물"],
-      ["filter", "거르다, 필터"],
-
       ["giant", "거인"],
-      ["woodpecker", "딱따구리"],
-      ["heat", "열"],
-
       ["vegetable", "채소"],
-      ["throat", "목구멍"],
-      ["shut", "닫다"],
-
       ["board", "판자, 게시판"],
-      ["cancel", "취소하다"],
-      ["castle", "성"],
-
       ["blackboard", "칠판"],
-      ["underground", "지하의"],
-      ["knock", "두드리다"],
-
       ["own", "자신의, 소유하다"],
-      ["than", "~보다"],
-      ["self", "자기 자신"],
-
       ["loser", "패자"],
-      ["mate", "친구, 짝"],
-      ["flash", "번쩍이다"],
-
       ["discuss", "의논하다"],
-      ["classmate", "반 친구"],
-      ["weight", "무게"],
-
       ["finish", "끝내다"],
+
+      // 두 번째 세로줄
+      ["muscle", "근육"],
+      ["moment", "순간"],
+      ["honesty", "정직"],
+      ["South", "남쪽"],
+      ["Southern", "남쪽의"],
+      ["North", "북쪽"],
+      ["northern", "북쪽의"],
+      ["borrow", "빌리다"],
+      ["departure", "출발"],
+      ["history", "역사"],
+      ["mill", "방앗간"],
+      ["windmill", "풍차"],
+      ["both", "둘 다"],
+      ["senior", "선배, 연장자"],
+      ["donkey", "당나귀"],
+      ["laundry", "세탁물"],
+      ["woodpecker", "딱따구리"],
+      ["throat", "목구멍"],
+      ["cancel", "취소하다"],
+      ["underground", "지하의"],
+      ["than", "~보다"],
+      ["mate", "친구, 짝"],
+      ["classmate", "반 친구"],
       ["roommate", "방을 함께 쓰는 사람"],
+
+      // 세 번째 세로줄
+      ["twinkle", "반짝이다"],
+      ["draw", "그리다"],
+      ["teen", "십 대"],
+      ["iron", "철, 다리미"],
+      ["behind", "뒤에"],
+      ["until", "~까지"],
+      ["care", "돌보다, 관심"],
+      ["each", "각각의"],
+      ["dawn", "새벽"],
+      ["climb", "오르다"],
+      ["sad", "슬픈"],
+      ["catch", "잡다"],
+      ["merry", "즐거운"],
+      ["sand", "모래"],
+      ["crab", "게"],
+      ["filter", "거르다, 필터"],
+      ["heat", "열"],
+      ["shut", "닫다"],
+      ["castle", "성"],
+      ["knock", "두드리다"],
+      ["self", "자기 자신"],
+      ["flash", "번쩍이다"],
+      ["weight", "무게"],
       ["enter", "들어가다"]
     ];
 
-    const wordImages = {
-      hasty: "🏃💨",
-      muscle: "💪",
-      twinkle: "✨",
-
-      gym: "🏋️",
-      moment: "⏱️",
-      draw: "🎨",
-
-      pillow: "🛏️",
-      honesty: "🤝",
-      teen: "🧑",
-
-      village: "🏘️",
-      South: "⬇️",
-      iron: "🔩",
-
-      trip: "🧳",
-      Southern: "🌏",
-      behind: "🙈",
-
-      fireman: "🧑‍🚒",
-      North: "⬆️",
-      until: "⏳",
-
-      culture: "🎭",
-      northern: "❄️",
-      care: "🤲",
-
-      trousers: "👖",
-      borrow: "🤝",
-      each: "👤👤",
-
-      pair: "👟",
-      departure: "🛫",
-      dawn: "🌅",
-
-      pumpkin: "🎃",
-      history: "📜",
-      climb: "🧗",
-
-      prize: "🏆",
-      mill: "🏭",
-      sad: "😢",
-
-      enemy: "⚔️",
-      windmill: "🌬️",
-      catch: "🥎",
-
-      museum: "🏛️",
-      both: "✌️",
-      merry: "🥳",
-
-      elbow: "💪",
-      senior: "👴",
-      sand: "🏖️",
-
-      honor: "🎖️",
-      donkey: "🫏",
-      crab: "🦀",
-
-      amazing: "🤩",
-      laundry: "🧺",
-      filter: "🔽",
-
-      giant: "🦶",
-      woodpecker: "🐦",
-      heat: "🔥",
-
-      vegetable: "🥦",
-      throat: "🗣️",
-      shut: "🚪",
-
-      board: "🪧",
-      cancel: "❌",
-      castle: "🏰",
-
-      blackboard: "🧑‍🏫",
-      underground: "🚇",
-      knock: "✊🚪",
-
-      own: "🔑",
-      than: "⚖️",
-      self: "🪞",
-
-      loser: "😞",
-      mate: "👫",
-      flash: "⚡",
-
-      discuss: "💬",
-      classmate: "🎒👫",
-      weight: "⚖️",
-
-      finish: "🏁",
-      roommate: "🏠👫",
-      enter: "🚪➡️"
-    };
-
-    const wordsPerPage = 3;
+    const wordsPerPage = 6;
     const pageCount = Math.ceil(words.length / wordsPerPage);
 
     let currentPage = 0;
@@ -498,7 +359,7 @@
 
       speech.lang = "en-US";
       speech.rate = 0.78;
-      speech.pitch = 1.05;
+      speech.pitch = 1.02;
 
       const voices = speechSynthesis.getVoices();
 
@@ -514,7 +375,10 @@
     }
 
     function showMeaning(index) {
-      const meaning = document.getElementById(`meaning-${index}`);
+      const meaning = document.getElementById(
+        `meaning-${index}`
+      );
+
       const button = document.getElementById(
         `meaningButton-${index}`
       );
@@ -522,12 +386,13 @@
       const isVisible = meaning.classList.toggle("visible");
 
       button.textContent = isVisible
-        ? "뜻 숨기기"
+        ? "숨기기"
         : "뜻 보기";
     }
 
     function renderWords() {
       const start = currentPage * wordsPerPage;
+
       const pageWords = words.slice(
         start,
         start + wordsPerPage
@@ -538,39 +403,31 @@
       cards.innerHTML = pageWords
         .map(([word, meaning], pageIndex) => {
           const index = start + pageIndex;
-          const image = wordImages[word] || "📖";
 
           return `
             <article class="card">
-              <div class="number">
-                WORD ${index + 1}
-              </div>
+              <div class="word-row">
+                <div class="number">
+                  ${index + 1}
+                </div>
 
-              <div
-                class="word-image"
-                role="button"
-                aria-label="${word} 발음 듣기"
-                onclick='speak(${JSON.stringify(word)})'
-              >
-                ${image}
-              </div>
+                <button
+                  class="word-button"
+                  onclick='speak(${JSON.stringify(word)})'
+                >
+                  ${word}
+                </button>
 
-              <button
-                class="word-button"
-                onclick='speak(${JSON.stringify(word)})'
-                aria-label="${word} 발음 듣기"
-              >
-                ${word}
-              </button>
-
-              <div class="card-actions">
                 <button
                   class="speak-button"
                   onclick='speak(${JSON.stringify(word)})'
+                  aria-label="${word} 발음 듣기"
                 >
-                  🔊 발음 듣기
+                  🔊
                 </button>
+              </div>
 
+              <div class="meaning-area">
                 <button
                   id="meaningButton-${index}"
                   class="meaning-button"
@@ -578,13 +435,13 @@
                 >
                   뜻 보기
                 </button>
-              </div>
 
-              <div
-                id="meaning-${index}"
-                class="meaning"
-              >
-                ${meaning}
+                <span
+                  id="meaning-${index}"
+                  class="meaning"
+                >
+                  ${meaning}
+                </span>
               </div>
             </article>
           `;
@@ -592,7 +449,7 @@
         .join("");
 
       document.getElementById("progressText").textContent =
-        `${currentPage + 1} / ${pageCount} · 총 ${words.length}단어`;
+        `${currentPage + 1} / ${pageCount} 페이지 · 총 ${words.length}단어`;
 
       document.getElementById("progressBar").style.width =
         `${((currentPage + 1) / pageCount) * 100}%`;
