@@ -2,20 +2,461 @@
 <html lang="ko">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <meta name="theme-color" content="#fff8e8">
   <title>서준이 영어 공부방</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+                   "Noto Sans KR", sans-serif;
+      color: #25324a;
+      background:
+        radial-gradient(circle at top left, #fff3b8 0, transparent 35%),
+        linear-gradient(145deg, #fffaf0, #eaf7ff);
+    }
+
+    button {
+      font: inherit;
+      touch-action: manipulation;
+    }
+
+    .app {
+      width: min(100%, 640px);
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 28px 18px calc(28px + env(safe-area-inset-bottom));
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .mascot {
+      font-size: 48px;
+      margin-bottom: 4px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(27px, 8vw, 40px);
+      letter-spacing: -1px;
+    }
+
+    .description {
+      margin: 8px 0 18px;
+      color: #647087;
+      font-size: 15px;
+    }
+
+    .progress-track {
+      height: 12px;
+      overflow: hidden;
+      background: #ffffffaa;
+      border: 2px solid #fff;
+      border-radius: 999px;
+      box-shadow: 0 4px 15px #61728e20;
+    }
+
+    .progress-bar {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #ffbd3e, #ff7d66);
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      margin-top: 8px;
+      color: #647087;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      min-height: 188px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      background: #fffffff2;
+      border: 2px solid #fff;
+      border-radius: 25px;
+      box-shadow: 0 12px 30px #5369881c;
+    }
+
+    .number {
+      color: #98a2b5;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .word-button {
+      margin: 5px 0 12px;
+      padding: 5px;
+      border: 0;
+      color: #263b69;
+      background: transparent;
+      font-size: clamp(32px, 10vw, 46px);
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .word-button:active {
+      transform: scale(0.96);
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: center;
+      gap: 9px;
+    }
+
+    .speak-button,
+    .meaning-button {
+      min-height: 46px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 15px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .speak-button {
+      color: #147264;
+      background: #dff8ef;
+    }
+
+    .meaning-button {
+      color: #9a5412;
+      background: #fff0cf;
+    }
+
+    .meaning {
+      min-height: 31px;
+      margin-top: 12px;
+      color: #ef6f51;
+      font-size: 22px;
+      font-weight: 900;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: 0.2s ease;
+    }
+
+    .meaning.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    nav {
+      position: sticky;
+      bottom: 12px;
+      margin-top: 20px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: #ffffffd9;
+      border: 2px solid #fff;
+      border-radius: 22px;
+      box-shadow: 0 10px 35px #42536c2b;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-button {
+      min-height: 55px;
+      border: 0;
+      border-radius: 16px;
+      color: white;
+      background: #506fbd;
+      font-size: 17px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .nav-button.next {
+      background: linear-gradient(135deg, #ff9e45, #ff7167);
+    }
+
+    .nav-button:disabled {
+      opacity: 0.35;
+    }
+
+    @media (min-width: 600px) {
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .card {
+        min-height: 260px;
+        padding: 16px 10px;
+      }
+
+      .word-button {
+        font-size: 28px;
+      }
+
+      .card-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <button onclick="speak('apple')">🍎 apple — 발음 듣기</button>
-  <button onclick="alert('사과')">뜻 보기</button>
+  <main class="app">
+    <header>
+      <div class="mascot">📚✨</div>
+      <h1>서준이 영어 공부방</h1>
+      <p class="description">단어를 누르면 영어 발음을 들을 수 있어요!</p>
+
+      <div class="progress-track">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <div id="progressText" class="progress-text"></div>
+    </header>
+
+    <section id="cards" class="cards"></section>
+
+    <nav>
+      <button id="previousButton" class="nav-button" onclick="previousPage()">
+        ← 이전
+      </button>
+
+      <button id="nextButton" class="nav-button next" onclick="nextPage()">
+        다음 →
+      </button>
+    </nav>
+  </main>
 
   <script>
+    const words = [
+      ["hasty", "성급한"],
+      ["muscle", "근육"],
+      ["twinkle", "반짝이다"],
+
+      ["gym", "체육관"],
+      ["moment", "순간"],
+      ["draw", "그리다"],
+
+      ["pillow", "베개"],
+      ["honesty", "정직"],
+      ["teen", "십 대"],
+
+      ["village", "마을"],
+      ["South", "남쪽"],
+      ["iron", "철, 다리미"],
+
+      ["trip", "여행"],
+      ["Southern", "남쪽의"],
+      ["behind", "뒤에"],
+
+      ["fireman", "소방관"],
+      ["North", "북쪽"],
+      ["until", "~까지"],
+
+      ["culture", "문화"],
+      ["northern", "북쪽의"],
+      ["care", "돌보다, 관심"],
+
+      ["trousers", "바지"],
+      ["borrow", "빌리다"],
+      ["each", "각각의"],
+
+      ["pair", "한 쌍"],
+      ["departure", "출발"],
+      ["dawn", "새벽"],
+
+      ["pumpkin", "호박"],
+      ["history", "역사"],
+      ["climb", "오르다"],
+
+      ["prize", "상"],
+      ["mill", "방앗간"],
+      ["sad", "슬픈"],
+
+      ["enemy", "적"],
+      ["windmill", "풍차"],
+      ["catch", "잡다"],
+
+      ["museum", "박물관"],
+      ["both", "둘 다"],
+      ["merry", "즐거운"],
+
+      ["elbow", "팔꿈치"],
+      ["senior", "선배, 연장자"],
+      ["sand", "모래"],
+
+      ["honor", "명예"],
+      ["donkey", "당나귀"],
+      ["crab", "게"],
+
+      ["amazing", "놀라운"],
+      ["laundry", "세탁물"],
+      ["filter", "거르다, 필터"],
+
+      ["giant", "거인"],
+      ["woodpecker", "딱따구리"],
+      ["heat", "열"],
+
+      ["vegetable", "채소"],
+      ["throat", "목구멍"],
+      ["shut", "닫다"],
+
+      ["board", "판자, 게시판"],
+      ["cancel", "취소하다"],
+      ["castle", "성"],
+
+      ["blackboard", "칠판"],
+      ["underground", "지하의"],
+      ["knock", "두드리다"],
+
+      ["own", "자신의, 소유하다"],
+      ["than", "~보다"],
+      ["self", "자기 자신"],
+
+      ["loser", "패자"],
+      ["mate", "친구, 짝"],
+      ["flash", "번쩍이다"],
+
+      ["discuss", "의논하다"],
+      ["classmate", "반 친구"],
+      ["weight", "무게"],
+
+      ["finish", "끝내다"],
+      ["roommate", "방을 함께 쓰는 사람"],
+      ["enter", "들어가다"]
+    ];
+
+    const wordsPerPage = 3;
+    const pageCount = Math.ceil(words.length / wordsPerPage);
+    let currentPage = 0;
+
     function speak(word) {
-      const voice = new SpeechSynthesisUtterance(word);
-      voice.lang = 'en-US';
+      if (!("speechSynthesis" in window)) {
+        alert("이 기기에서는 음성 기능을 사용할 수 없어요.");
+        return;
+      }
+
       speechSynthesis.cancel();
-      speechSynthesis.speak(voice);
+
+      const speech = new SpeechSynthesisUtterance(word);
+      speech.lang = "en-US";
+      speech.rate = 0.78;
+      speech.pitch = 1.05;
+
+      const voices = speechSynthesis.getVoices();
+      const englishVoice = voices.find(voice =>
+        voice.lang.toLowerCase().startsWith("en-us")
+      );
+
+      if (englishVoice) {
+        speech.voice = englishVoice;
+      }
+
+      speechSynthesis.speak(speech);
     }
+
+    function showMeaning(index) {
+      const meaning = document.getElementById(`meaning-${index}`);
+      const button = document.getElementById(`meaningButton-${index}`);
+      const isVisible = meaning.classList.toggle("visible");
+
+      button.textContent = isVisible ? "뜻 숨기기" : "뜻 보기";
+    }
+
+    function renderWords() {
+      const start = currentPage * wordsPerPage;
+      const pageWords = words.slice(start, start + wordsPerPage);
+      const cards = document.getElementById("cards");
+
+      cards.innerHTML = pageWords.map(([word, meaning], pageIndex) => {
+        const index = start + pageIndex;
+
+        return `
+          <article class="card">
+            <div class="number">WORD ${index + 1}</div>
+
+            <button
+              class="word-button"
+              onclick='speak(${JSON.stringify(word)})'
+              aria-label="${word} 발음 듣기">
+              ${word}
+            </button>
+
+            <div class="card-actions">
+              <button
+                class="speak-button"
+                onclick='speak(${JSON.stringify(word)})'>
+                🔊 발음 듣기
+              </button>
+
+              <button
+                id="meaningButton-${index}"
+                class="meaning-button"
+                onclick="showMeaning(${index})">
+                뜻 보기
+              </button>
+            </div>
+
+            <div id="meaning-${index}" class="meaning">
+              ${meaning}
+            </div>
+          </article>
+        `;
+      }).join("");
+
+      document.getElementById("progressText").textContent =
+        `${currentPage + 1} / ${pageCount} · 총 ${words.length}단어`;
+
+      document.getElementById("progressBar").style.width =
+        `${((currentPage + 1) / pageCount) * 100}%`;
+
+      document.getElementById("previousButton").disabled =
+        currentPage === 0;
+
+      document.getElementById("nextButton").textContent =
+        currentPage === pageCount - 1 ? "처음으로 ↻" : "다음 →";
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function previousPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        renderWords();
+      }
+    }
+
+    function nextPage() {
+      if (currentPage < pageCount - 1) {
+        currentPage++;
+      } else {
+        currentPage = 0;
+      }
+
+      renderWords();
+    }
+
+    speechSynthesis.getVoices();
+    renderWords();
   </script>
 </body>
 </html>
