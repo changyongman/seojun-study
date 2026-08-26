@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>영어 단어 놀이</title>
+</head>
+<body>
+  <button onclick="speak('apple')">🍎 apple — 발음 듣기</button>
+  <button onclick="alert('사과')">뜻 보기</button>
+
+  <script>
+    function speak(word) {
+      const voice = new SpeechSynthesisUtterance(word);
+      voice.lang = 'en-US';
+      speechSynthesis.cancel();
+      speechSynthesis.speak(voice);
+    }
+  </script>
+</body>
+</html>
