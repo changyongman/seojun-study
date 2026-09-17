@@ -76,50 +76,21 @@
     let currentPage=0, quizOrder=[], quizPosition=0, currentQuiz=null, answered=false;
     let stars=Number(localStorage.getItem("seojunStars")||0);
 
+    let availableVoices=[];
+    function loadVoices(){availableVoices=speechSynthesis.getVoices()}
+    function getEnglishVoice(){
+      loadVoices();
+      const usVoices=availableVoices.filter(v=>v.lang.toLowerCase().replace("_","-").startsWith("en-us"));
+      return usVoices.find(v=>/samantha|ava|allison|susan|zira/i.test(v.name))||usVoices[0]||availableVoices.find(v=>v.lang.toLowerCase().startsWith("en"));
+    }
     function speak(word){
       if(!("speechSynthesis" in window)){alert("이 기기에서는 음성 기능을 사용할 수 없어요.");return}
       speechSynthesis.cancel();
-      const speech=new SpeechSynthesisUtterance(word);speech.lang="en-US";speech.rate=.78;speech.pitch=1.02;
-      const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("en-us"));if(voice)speech.voice=voice;
+      const speech=new SpeechSynthesisUtterance(word),voice=getEnglishVoice();
+      if(voice){speech.voice=voice;speech.lang=voice.lang}else{speech.lang="en-US"}
+      speech.rate=.9;speech.pitch=1;speech.volume=1;
       speechSynthesis.speak(speech);
     }
     function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
     function showPage(page){
       document.getElementById("studyPage").classList.toggle("active",page==="study");document.getElementById("quizPage").classList.toggle("active",page==="quiz");
-      document.getElementById("studyTab").classList.toggle("active",page==="study");document.getElementById("quizTab").classList.toggle("active",page==="quiz");
-      if(page==="quiz"&&!currentQuiz)startQuiz();window.scrollTo({top:0,behavior:"smooth"});
-    }
-    function showMeaning(index){const m=document.getElementById(`meaning-${index}`),b=document.getElementById(`meaningButton-${index}`);const visible=m.classList.toggle("visible");b.textContent=visible?"숨기기":"뜻 보기"}
-    function renderWords(){
-      const start=currentPage*wordsPerPage,pageWords=words.slice(start,start+wordsPerPage);
-      document.getElementById("cards").innerHTML=pageWords.map(([word,meaning],i)=>{const index=start+i;return `<article class="card"><div class="word-row"><div class="number">${index+1}</div><button class="word-button" onclick='speak(${JSON.stringify(word)})'>${word}</button><button class="speak-button" onclick='speak(${JSON.stringify(word)})' aria-label="${word} 발음 듣기">🔊</button></div><div class="meaning-area"><button id="meaningButton-${index}" class="meaning-button" onclick="showMeaning(${index})">뜻 보기</button><span id="meaning-${index}" class="meaning">${meaning}</span></div></article>`}).join("");
-      document.getElementById("progressText").textContent=`${currentPage+1} / ${pageCount} 페이지 · 총 ${words.length}단어`;
-      document.getElementById("progressBar").style.width=`${((currentPage+1)/pageCount)*100}%`;
-      document.getElementById("previousButton").disabled=currentPage===0;document.getElementById("nextButton").textContent=currentPage===pageCount-1?"처음으로 ↻":"다음 →";
-    }
-    function previousPage(){if(currentPage>0){currentPage--;renderWords();window.scrollTo({top:0,behavior:"smooth"})}}
-    function nextPage(){currentPage=currentPage<pageCount-1?currentPage+1:0;renderWords();window.scrollTo({top:0,behavior:"smooth"})}
-    function startQuiz(){quizOrder=shuffle(words.map((_,i)=>i));quizPosition=0;makeQuestion()}
-    function makeQuestion(){
-      answered=false;if(quizPosition>=quizOrder.length){quizOrder=shuffle(words.map((_,i)=>i));quizPosition=0}
-      const correctIndex=quizOrder[quizPosition],correct=words[correctIndex];
-      const wrongIndexes=shuffle(words.map((_,i)=>i).filter(i=>i!==correctIndex)).slice(0,3);
-      const options=shuffle([{text:correct[1],correct:true},...wrongIndexes.map(i=>({text:words[i][1],correct:false}))]);
-      currentQuiz={word:correct[0],meaning:correct[1]};document.getElementById("quizWord").textContent=correct[0];document.getElementById("quizCount").textContent=`${quizPosition+1} / ${words.length} 문제`;document.getElementById("starCount").textContent=stars;
-      document.getElementById("quizSpeak").onclick=()=>speak(correct[0]);document.getElementById("result").textContent="";document.getElementById("result").className="result";document.getElementById("nextQuestion").classList.remove("visible");
-      document.getElementById("choices").innerHTML=options.map((o,i)=>`<button class="choice" data-correct="${o.correct}" onclick="checkAnswer(this)"><span class="choice-number">${i+1}</span>${o.text}</button>`).join("");
-    }
-    function checkAnswer(button){
-      if(answered)return;answered=true;const correct=button.dataset.correct==="true",buttons=[...document.querySelectorAll(".choice")];buttons.forEach(b=>{b.disabled=true;if(b.dataset.correct==="true")b.classList.add("correct")});
-      const result=document.getElementById("result");if(correct){stars++;localStorage.setItem("seojunStars",stars);document.getElementById("starCount").textContent=stars;result.textContent="⭐ 정답! 별을 얻었어요";result.classList.add("correct")}else{button.classList.add("wrong");result.textContent="❌ 아쉬워요! 정답을 확인해 보세요";result.classList.add("wrong")}
-      document.getElementById("nextQuestion").classList.add("visible");
-    }
-    function nextQuiz(){quizPosition++;makeQuestion();window.scrollTo({top:0,behavior:"smooth"})}
-    function resetStars(){
-      if(!confirm("모은 별을 모두 초기화할까요?"))return;
-      stars=0;localStorage.removeItem("seojunStars");document.getElementById("starCount").textContent=0;alert("별이 초기화되었어요.");
-    }
-    speechSynthesis.getVoices();renderWords();document.getElementById("starCount").textContent=stars;
-  </script>
-</body>
-</html>
