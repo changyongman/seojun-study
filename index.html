@@ -1,96 +1,16 @@
-<!doctype html>
-<html lang="ko">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#f5f7ff">
-  <title>서준이 영어 공부방</title>
-  <style>
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    body{margin:0;min-height:100vh;color:#25324a;background:linear-gradient(160deg,#f7f9ff,#fff9ee);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}
-    button{font:inherit;touch-action:manipulation}
-    .app{width:min(100%,620px);min-height:100vh;margin:auto;padding:calc(20px + env(safe-area-inset-top)) 16px calc(25px + env(safe-area-inset-bottom))}
-    header{text-align:center}.title{margin:0;color:#263b69;font-size:clamp(27px,8vw,38px);letter-spacing:-1px}.subtitle{margin:7px 0 15px;color:#728099;font-size:14px}
-    .tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:18px;padding:6px;background:#e9edf8;border-radius:18px}
-    .tab{min-height:48px;border:0;border-radius:13px;color:#6a7590;background:transparent;font-weight:900;cursor:pointer}.tab.active{color:#fff;background:#6072c2;box-shadow:0 5px 14px #5263a743}
-    .page{display:none}.page.active{display:block}
-    .progress-track{height:10px;overflow:hidden;background:#e5e9f2;border-radius:999px}.progress-bar{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,#667eea,#ff8c70);transition:width .25s}.progress-text{margin:8px 0 15px;text-align:center;color:#728099;font-size:14px;font-weight:800}
-    .cards{display:grid;gap:10px}.card{padding:14px 15px;background:#fff;border:1px solid #e8ebf3;border-radius:18px;box-shadow:0 7px 20px #38466914}.word-row{display:flex;align-items:center;gap:11px}.number{width:30px;height:30px;flex:0 0 auto;display:grid;place-items:center;color:#6675a5;background:#eef1ff;border-radius:50%;font-size:12px;font-weight:900}.word-button{min-width:0;flex:1;padding:4px 0;overflow-wrap:anywhere;text-align:left;color:#253967;background:transparent;border:0;font-size:clamp(24px,7vw,32px);font-weight:900;cursor:pointer}.speak-button{width:45px;height:45px;flex:0 0 auto;padding:0;color:#167568;background:#e1f7f1;border:0;border-radius:14px;font-size:20px;cursor:pointer}.meaning-area{margin:8px 0 0 41px;display:flex;align-items:center;gap:9px}.meaning-button{min-height:35px;padding:7px 12px;color:#a45b16;background:#fff1d5;border:0;border-radius:11px;font-size:14px;font-weight:800;cursor:pointer}.meaning{color:#ed7057;font-size:17px;font-weight:900;opacity:0;transition:.2s}.meaning.visible{opacity:1}
-    .study-nav{position:sticky;bottom:10px;margin-top:16px;padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px;background:#ffffffea;border:1px solid #e8ebf3;border-radius:19px;box-shadow:0 10px 30px #313d5b29;backdrop-filter:blur(12px)}.nav-button{min-height:50px;color:#fff;background:#6373b8;border:0;border-radius:14px;font-size:16px;font-weight:900;cursor:pointer}.nav-button.next{background:linear-gradient(135deg,#ff9d4d,#ff746a)}.nav-button:disabled{opacity:.32}
-    .quiz-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;padding:13px 16px;background:#fff;border:1px solid #e8ebf3;border-radius:17px;box-shadow:0 6px 18px #38466912}.quiz-count{color:#758099;font-weight:800}.star-box{color:#915f00;font-size:18px;font-weight:900}.quiz-card{padding:25px 18px 20px;text-align:center;background:#fff;border:1px solid #e8ebf3;border-radius:24px;box-shadow:0 10px 28px #38466918}.quiz-label{color:#8a94aa;font-size:14px;font-weight:800}.quiz-word{margin:9px 0 14px;color:#253967;font-size:clamp(38px,12vw,58px);font-weight:950;overflow-wrap:anywhere}.quiz-speak{min-height:47px;padding:10px 18px;color:#147264;background:#dff8ef;border:0;border-radius:14px;font-weight:900;cursor:pointer}.question{margin:21px 0 12px;font-size:18px;font-weight:900}.choices{display:grid;gap:10px}.choice{min-height:55px;padding:10px 14px;text-align:left;color:#34415c;background:#fff;border:2px solid #e5e9f3;border-radius:16px;font-size:16px;font-weight:800;cursor:pointer}.choice.correct{color:#08795e;background:#dcf8ed;border-color:#42bf98}.choice.wrong{color:#a92c2c;background:#ffe5e5;border-color:#f27676}.choice:disabled{opacity:1}.choice-number{display:inline-grid;width:28px;height:28px;margin-right:8px;place-items:center;background:#eef1f8;border-radius:9px}.result{min-height:45px;margin:14px 0 0;display:grid;place-items:center;font-size:24px;font-weight:950}.result.correct{color:#e39b00}.result.wrong{color:#e04b4b}.next-question{width:100%;min-height:53px;margin-top:10px;color:#fff;background:linear-gradient(135deg,#ff9d4d,#ff746a);border:0;border-radius:16px;font-size:17px;font-weight:900;cursor:pointer;display:none}.next-question.visible{display:block}.quiz-note{margin:14px 5px 0;text-align:center;color:#8a94aa;font-size:13px}
-    .reset-stars{display:block;margin:12px auto 0;padding:8px 14px;color:#8992a5;background:transparent;border:1px solid #d8dce6;border-radius:11px;font-size:13px;font-weight:700;cursor:pointer}
-    button:active{transform:scale(.97)}
-  </style>
-</head>
-<body>
-  <main class="app">
-    <header><h1 class="title">서준이 영어 공부방</h1><p class="subtitle">매일 조금씩, 즐겁게 공부해요!</p></header>
-    <div class="tabs">
-      <button id="studyTab" class="tab active" onclick="showPage('study')">📖 단어 공부</button>
-      <button id="quizTab" class="tab" onclick="showPage('quiz')">⭐ 별 퀴즈</button>
-    </div>
-
-    <section id="studyPage" class="page active">
-      <div class="progress-track"><div id="progressBar" class="progress-bar"></div></div>
-      <div id="progressText" class="progress-text"></div>
-      <div id="cards" class="cards"></div>
-      <nav class="study-nav">
-        <button id="previousButton" class="nav-button" onclick="previousPage()">← 이전</button>
-        <button id="nextButton" class="nav-button next" onclick="nextPage()">다음 →</button>
-      </nav>
-    </section>
-
-    <section id="quizPage" class="page">
-      <div class="quiz-top"><span id="quizCount" class="quiz-count"></span><span class="star-box">⭐ <span id="starCount">0</span>개</span></div>
-      <div class="quiz-card">
-        <div class="quiz-label">이 단어의 뜻은 무엇일까요?</div>
-        <div id="quizWord" class="quiz-word"></div>
-        <button id="quizSpeak" class="quiz-speak">🔊 발음 확인</button>
-        <div class="question">정답을 골라보세요</div>
-        <div id="choices" class="choices"></div>
-        <div id="result" class="result"></div>
-        <button id="nextQuestion" class="next-question" onclick="nextQuiz()">다음 문제 →</button>
-      </div>
-      <p class="quiz-note">정답을 맞힐 때마다 별이 한 개씩 쌓여요.</p>
-      <button class="reset-stars" onclick="resetStars()">별 초기화</button>
-    </section>
-  </main>
-
-  <script>
-    const words = [
-      ["hasty","서두르는"],["gym","체육관"],["pillow","베개"],["village","마을"],["trip","여행"],["fireman","소방관"],
-      ["culture","문화"],["trousers","바지"],["pair","한 쌍"],["pumpkin","호박"],["prize","상, 상품"],["enemy","적, 원수"],
-      ["museum","박물관"],["elbow","팔꿈치"],["honor","영광"],["amazing","놀랄 만한, 굉장한"],["giant","거인, 거대한"],["vegetable","야채, 채소"],
-      ["board","판자"],["blackboard","칠판"],["own","자기 자신의, 소유하다"],["loser","패자, 패배자"],["discuss","토론하다"],["finish","마치다, 끝내다"],
-      ["muscle","근육"],["moment","순간"],["honesty","정직"],["South","남쪽"],["Southern","남쪽의"],["North","북쪽"],
-      ["northern","북쪽의"],["borrow","빌리다"],["departure","출발"],["history","역사"],["mill","방앗간"],["windmill","풍차"],
-      ["both","양쪽의, 둘 다의"],["senior","손위의, 연장자"],["donkey","당나귀"],["laundry","세탁, 세탁물"],["woodpecker","딱따구리"],["throat","목구멍"],
-      ["cancel","취소하다"],["underground","지하의, 지하"],["than","~에 비하여, ~와 비교하여"],["mate","친구, 동료"],["classmate","학급 친구"],["roommate","한방 사람, 같이 방을 쓰는 친구"],
-      ["twinkle","반짝반짝 빛나다"],["draw","끌어당기다"],["teen","십 대, 십 대의"],["iron","철"],["behind","뒤에"],["until","~까지, ~할 때까지"],
-      ["care","관심, 돌보아 줌, 걱정"],["each","각각의, 각자의, 각각"],["dawn","새벽녘"],["climb","오르다, 기어오르다"],["sad","슬픈"],["catch","잡다"],
-      ["merry","즐거운"],["sand","모래"],["crab","게"],["filter","여과기, 거르다"],["heat","열, 가열하다"],["shut","닫다"],
-      ["castle","성"],["knock","치다, 두드리다, 노크"],["self","자기, 자신"],["flash","번쩍이다, 빛나다"],["weight","무게, 중량"],["enter","들어가다"]
-    ];
-
-    const wordsPerPage=6, pageCount=Math.ceil(words.length/wordsPerPage);
-    let currentPage=0, quizOrder=[], quizPosition=0, currentQuiz=null, answered=false;
-    let stars=Number(localStorage.getItem("seojunStars")||0);
-
-    let availableVoices=[];
-    function loadVoices(){availableVoices=speechSynthesis.getVoices()}
-    function getEnglishVoice(){
-      loadVoices();
-      const usVoices=availableVoices.filter(v=>v.lang.toLowerCase().replace("_","-").startsWith("en-us"));
-      return usVoices.find(v=>/samantha|ava|allison|susan|zira/i.test(v.name))||usVoices[0]||availableVoices.find(v=>v.lang.toLowerCase().startsWith("en"));
-    }
-    function speak(word){
-      if(!("speechSynthesis" in window)){alert("이 기기에서는 음성 기능을 사용할 수 없어요.");return}
-      speechSynthesis.cancel();
-      const speech=new SpeechSynthesisUtterance(word),voice=getEnglishVoice();
-      if(voice){speech.voice=voice;speech.lang=voice.lang}else{speech.lang="en-US"}
-      speech.rate=.9;speech.pitch=1;speech.volume=1;
-      speechSynthesis.speak(speech);
-    }
-    function shuffle(items){const a=[...items];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
-    function showPage(page){
-      document.getElementById("studyPage").classList.toggle("active",page==="study");document.getElementById("quizPage").classList.toggle("active",page==="quiz");
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f3fbf7"><title>서준이 영어 공부방</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;min-height:100vh;color:#26374e;background:radial-gradient(circle at 10% 0,#dff7e8 0,transparent 32%),radial-gradient(circle at 100% 8%,#e0efff 0,transparent 32%),linear-gradient(155deg,#f8fffb,#fffaf1);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif}button{font:inherit;touch-action:manipulation;cursor:pointer}button:active{transform:scale(.97)}.app{width:min(100%,620px);min-height:100vh;margin:auto;padding:calc(22px + env(safe-area-inset-top)) 16px calc(28px + env(safe-area-inset-bottom))}header{text-align:center}.title{margin:0;color:#245b4a;font-size:clamp(28px,8vw,39px);letter-spacing:-1.2px}.subtitle{margin:7px 0 17px;color:#72827c;font-size:14px;font-weight:700}.progress{height:10px;overflow:hidden;background:#e3ebe7;border-radius:999px}.progress-bar{height:100%;border-radius:inherit;background:linear-gradient(90deg,#48b88b,#65a6e8);transition:width .25s}.status{display:flex;justify-content:space-between;margin:8px 3px 16px;color:#76847f;font-size:13px;font-weight:800}.card{min-height:470px;padding:30px 20px 22px;display:flex;flex-direction:column;align-items:center;text-align:center;background:#fffffff2;border:2px solid #fff;border-radius:30px;box-shadow:0 15px 38px #3658461a}.label{color:#8b9994;font-size:13px;font-weight:900;letter-spacing:1px}.word{width:100%;margin:22px 0 13px;padding:10px 5px;color:#234a75;background:transparent;border:0;font-size:clamp(42px,13vw,68px);font-weight:950;overflow-wrap:anywhere}.speak-tip{margin:-5px 0 21px;color:#87938f;font-size:13px;font-weight:700}.actions{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px}.action{min-height:53px;border:0;border-radius:16px;font-size:16px;font-weight:900}.hint-button{color:#196f5b;background:#ddf7ed}.meaning-button{color:#a45b16;background:#fff0d3}.reveal{width:100%;min-height:150px;margin-top:18px;display:grid;place-items:center;background:#f7faf8;border:2px dashed #dfe9e4;border-radius:22px}.placeholder{color:#a1aaa7;font-size:14px;font-weight:700}.hint-image{display:none;font-size:86px;line-height:1.15;animation:pop .25s ease}.hint-image.show{display:block}.meaning{display:none;padding:12px;color:#e3674f;font-size:clamp(23px,7vw,31px);font-weight:950;line-height:1.35;animation:pop .25s ease}.meaning.show{display:block}@keyframes pop{from{opacity:0;transform:scale(.75)}to{opacity:1;transform:scale(1)}}.nav{position:sticky;bottom:10px;margin-top:17px;padding:9px;display:grid;grid-template-columns:1fr 1fr;gap:9px;background:#ffffffea;border:1px solid #e3ebe7;border-radius:21px;box-shadow:0 10px 30px #314d4027;backdrop-filter:blur(12px)}.nav-button{min-height:53px;color:#fff;background:#6076aa;border:0;border-radius:15px;font-size:17px;font-weight:900}.nav-button.next{background:linear-gradient(135deg,#44b98d,#3e98d1)}.nav-button:disabled{opacity:.3}.shuffle{display:block;margin:13px auto 0;padding:8px 13px;color:#7d8985;background:transparent;border:1px solid #d4dfda;border-radius:11px;font-size:13px;font-weight:800}@media(max-width:380px){.card{min-height:430px;padding-left:14px;padding-right:14px}.action{font-size:14px}.word{font-size:40px}}
+</style></head><body><main class="app"><header><h1 class="title">서준이 영어 공부방</h1><p class="subtitle">단어를 누르면 발음을 들을 수 있어요</p></header><div class="progress"><div id="progressBar" class="progress-bar"></div></div><div class="status"><span id="position"></span><span>총 38단어</span></div><section class="card"><div class="label">TODAY'S WORD</div><button id="word" class="word" onclick="speakCurrent()"></button><div class="speak-tip">🔊 단어를 눌러 발음을 확인하세요</div><div class="actions"><button id="hintButton" class="action hint-button" onclick="toggleHint()">🖼️ 그림 힌트</button><button id="meaningButton" class="action meaning-button" onclick="toggleMeaning()">💡 뜻 보기</button></div><div class="reveal"><div id="placeholder" class="placeholder">힌트나 뜻을 눌러 보세요</div><div id="hintImage" class="hint-image" aria-label="그림 힌트"></div><div id="meaning" class="meaning"></div></div></section><nav class="nav"><button id="previous" class="nav-button" onclick="move(-1)">← 이전</button><button id="next" class="nav-button next" onclick="move(1)">다음 →</button></nav><button class="shuffle" onclick="shuffleWords()">🔀 순서 섞기</button></main>
+<script>
+const originalWords=[
+{word:"hole",meaning:"구멍",image:"🕳️"},{word:"cash",meaning:"현금",image:"💵"},{word:"palace",meaning:"궁전",image:"🏰"},{word:"wedding",meaning:"결혼, 결혼식",image:"💒"},{word:"march",meaning:"행진",image:"🥁"},{word:"cheer",meaning:"응원, 격려",image:"📣"},{word:"straight",meaning:"똑바른, 쭉 뻗은",image:"📏"},{word:"guide",meaning:"안내자, 안내하다",image:"🧭"},{word:"slide",meaning:"미끄러지다, 미끄럼틀, 미끄러짐",image:"🛝"},{word:"receive",meaning:"받다",image:"📥"},{word:"lock",meaning:"자물쇠, 잠그다",image:"🔒"},{word:"lead",meaning:"이끌다",image:"🚶‍♂️➡️"},{word:"fry",meaning:"튀김, 튀기다",image:"🍳"},{word:"sail",meaning:"항해하다",image:"⛵"},{word:"bakery",meaning:"빵집, 제과점",image:"🥐"},{word:"adventure",meaning:"모험",image:"🗺️"},{word:"wide",meaning:"넓은",image:"↔️"},{word:"burn",meaning:"타다, 불태우다",image:"🔥"},{word:"alarm",meaning:"놀람, 경보, 놀라게 하다",image:"⏰"},{word:"wave",meaning:"파도, 물결",image:"🌊"},{word:"wheel",meaning:"수레바퀴, 자동차의 핸들",image:"🛞"},{word:"assist",meaning:"돕다",image:"🤝"},{word:"shake",meaning:"흔들다, 흔들리다",image:"🫨"},{word:"quick",meaning:"빠른",image:"🏍️💨"},{word:"cow",meaning:"암소, 젖소",image:"🐄"},{word:"glass",meaning:"유리",image:"🪟"},{word:"pocket",meaning:"호주머니",image:"👖"},{word:"monster",meaning:"괴물",image:"👾"},{word:"rice",meaning:"쌀, 밥",image:"🍚"},{word:"god",meaning:"신, 하느님",image:"🙏"},{word:"hill",meaning:"언덕",image:"🌄"},{word:"shuttle",meaning:"왕복의, 왕복 운행",image:"🚌↔️"},{word:"meat",meaning:"고기",image:"🥩"},{word:"lesson",meaning:"수업",image:"🧑‍🏫"},{word:"cart",meaning:"손수레",image:"🛒"},{word:"safe",meaning:"안전한",image:"🛡️"},{word:"ready",meaning:"준비가 된",image:"✅"},{word:"action",meaning:"행동, 연기",image:"🎬"}];
+let words=[...originalWords],index=0,hintOpen=false,meaningOpen=false,voices=[];
+function loadVoices(){voices=speechSynthesis.getVoices()}function englishVoice(){loadVoices();const us=voices.filter(v=>v.lang.toLowerCase().replace("_","-").startsWith("en-us"));return us.find(v=>/samantha|ava|allison|susan|zira/i.test(v.name))||us[0]||voices.find(v=>v.lang.toLowerCase().startsWith("en"))}
+function speakCurrent(){if(!("speechSynthesis" in window)){alert("이 기기에서는 음성 기능을 사용할 수 없어요.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(words[index].word),voice=englishVoice();if(voice){u.voice=voice;u.lang=voice.lang}else u.lang="en-US";u.rate=.88;u.pitch=1;u.volume=1;speechSynthesis.speak(u)}
+function toggleHint(){hintOpen=!hintOpen;if(hintOpen)meaningOpen=false;updateReveal()}function toggleMeaning(){meaningOpen=!meaningOpen;if(meaningOpen)hintOpen=false;updateReveal()}
+function updateReveal(){const hint=document.getElementById("hintImage"),meaning=document.getElementById("meaning"),placeholder=document.getElementById("placeholder");hint.classList.toggle("show",hintOpen);meaning.classList.toggle("show",meaningOpen);placeholder.style.display=hintOpen||meaningOpen?"none":"block";document.getElementById("hintButton").textContent=hintOpen?"그림 숨기기":"🖼️ 그림 힌트";document.getElementById("meaningButton").textContent=meaningOpen?"뜻 숨기기":"💡 뜻 보기"}
+function render(){const item=words[index];hintOpen=false;meaningOpen=false;document.getElementById("word").textContent=item.word;document.getElementById("hintImage").textContent=item.image;document.getElementById("meaning").textContent=item.meaning;document.getElementById("position").textContent=`${index+1} / ${words.length}`;document.getElementById("progressBar").style.width=`${((index+1)/words.length)*100}%`;document.getElementById("previous").disabled=index===0;document.getElementById("next").textContent=index===words.length-1?"처음으로 ↻":"다음 →";updateReveal();window.scrollTo({top:0,behavior:"smooth"})}
+function move(direction){if(direction<0&&index>0)index--;else if(direction>0)index=index<words.length-1?index+1:0;render()}function shuffleWords(){for(let i=words.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[words[i],words[j]]=[words[j],words[i]]}index=0;render()}
+loadVoices();if("onvoiceschanged" in speechSynthesis)speechSynthesis.onvoiceschanged=loadVoices;render();
+</script></body></html>
